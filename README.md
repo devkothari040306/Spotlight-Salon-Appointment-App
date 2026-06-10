@@ -1,4 +1,4 @@
-# ✦ Lumière — Salon Appointment Booking App
+# ✦ Spotlight — Salon Appointment Booking App
 
 A full-stack salon appointment booking application built with React + Vite (frontend) and Node.js + Express + MongoDB (backend).
 
