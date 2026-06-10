@@ -34,6 +34,9 @@ app.use(
 );
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.send('Spotlight Salon API is running 🚀');
+});
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
