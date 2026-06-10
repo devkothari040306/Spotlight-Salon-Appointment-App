@@ -100,7 +100,7 @@ cp .env.example .env
 Edit `.env` and fill in:
 
 ```env
-PORT=5000
+PORT=5001
 MONGODB_URI=mongodb+srv://<user>:<password>@cluster0.xxxxx.mongodb.net/salon-app
 JWT_SECRET=change_this_to_a_long_random_string
 NODE_ENV=development
@@ -123,7 +123,7 @@ npm run dev     # uses nodemon (auto-restart)
 npm start       # plain node
 ```
 
-Backend runs at `http://localhost:5000`
+Backend runs at `http://localhost:5001`
 
 ---
 
@@ -143,10 +143,10 @@ cp .env.example .env
 The default `.env` for local dev:
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=http://localhost:5001/api
 ```
 
-> In development Vite also proxies `/api` → `http://localhost:5000` via `vite.config.js`, so you can leave `VITE_API_URL` blank locally and it will still work.
+> In development Vite also proxies `/api` → `http://localhost:5001` via `vite.config.js`, so you can leave `VITE_API_URL` blank locally and it will still work.
 
 **Start the frontend dev server:**
 

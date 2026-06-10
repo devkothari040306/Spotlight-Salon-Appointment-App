@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // Proxy API calls in development to avoid CORS issues
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:5001',
         changeOrigin: true,
       },
     },
