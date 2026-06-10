@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  // Priority: explicit VITE_API_URL (set in Vercel) -> Render backend URL -> relative '/api' (dev proxy)
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    'https://spotlight-salon-appointment-app.onrender.com/api' ||
+    '/api',
   headers: { 'Content-Type': 'application/json' },
 });
 
