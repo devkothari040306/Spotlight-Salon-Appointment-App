@@ -52,7 +52,7 @@ export default function Register() {
         <div className="text-center">
           <span className="text-3xl">✦</span>
           <h1 className="mt-3 font-display text-3xl font-semibold text-stone-900">Create account</h1>
-          <p className="mt-2 text-sm text-stone-500">Join Lumière and book your first treatment</p>
+          <p className="mt-2 text-sm text-stone-500">Join Spotlight and book your first treatment</p>
         </div>
 
         <div className="card mt-8 p-8">
@@ -100,7 +100,7 @@ export default function Register() {
                 value={form.phone}
                 onChange={handleChange}
                 className="input"
-                placeholder="+44 7700 900000"
+                placeholder="+91 7700 900000"
               />
             </div>
 

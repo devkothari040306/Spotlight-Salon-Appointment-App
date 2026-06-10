@@ -11,7 +11,7 @@ const FEATURES = [
 ];
 
 const TESTIMONIALS = [
-  { name: 'Priya S.', text: 'The best salon experience I have had in London. Absolutely transformed my hair.', stars: 5 },
+  { name: 'Priya S.', text: 'The best salon experience I have had in Jaipur. Absolutely transformed my hair.', stars: 5 },
   { name: 'Marcus T.', text: 'Booked online in minutes and the cut was exactly what I asked for. Will be back.', stars: 5 },
   { name: 'Aisha R.', text: 'The facial left my skin glowing for days. Incredibly relaxing atmosphere too.', stars: 5 },
 ];
@@ -41,7 +41,7 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-6xl px-4 py-28 sm:px-6 sm:py-36 lg:py-44">
           <p className="text-xs font-medium uppercase tracking-[0.25em] text-rose-300">
-            Premium Beauty Studio — London
+            Premium Beauty Studio — Jaipur
           </p>
           <h1 className="mt-4 max-w-2xl font-display text-5xl font-semibold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
             Beauty crafted<br />
@@ -154,7 +154,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="text-center">
             <p className="text-xs font-medium uppercase tracking-widest text-rose-300">What clients say</p>
-            <h2 className="mt-2 font-display text-3xl font-semibold md:text-4xl">Loved by Londoners</h2>
+            <h2 className="mt-2 font-display text-3xl font-semibold md:text-4xl">Loved by Jaipurites</h2>
           </div>
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
             {TESTIMONIALS.map((t) => (

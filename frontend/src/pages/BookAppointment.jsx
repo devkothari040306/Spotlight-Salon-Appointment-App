@@ -171,7 +171,7 @@ export default function BookAppointment() {
                 <span className="text-rose-400">·</span>
                 <span>{selectedService.duration} min</span>
                 <span className="text-rose-400">·</span>
-                <span>£{selectedService.price}</span>
+                <span>₹{selectedService.price}</span>
               </div>
             ) : (
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -187,7 +187,7 @@ export default function BookAppointment() {
                       <p className="mt-0.5 text-xs text-stone-500 line-clamp-2">{svc.description}</p>
                     </div>
                     <div className="shrink-0 text-right">
-                      <p className="font-semibold text-stone-900">£{svc.price}</p>
+                      <p className="font-semibold text-stone-900">₹{svc.price}</p>
                       <p className="text-xs text-stone-400">{svc.duration} min</p>
                     </div>
                   </button>
@@ -269,7 +269,7 @@ export default function BookAppointment() {
                 ['Date', new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })],
                 ['Time', selectedSlot],
                 ['Duration', `${selectedService.duration} minutes`],
-                ['Price', `£${selectedService.price}`],
+                ['Price', `₹${selectedService.price}`],
               ].map(([label, value]) => (
                 <div key={label} className="flex items-center justify-between px-5 py-3 text-sm">
                   <span className="text-stone-500">{label}</span>

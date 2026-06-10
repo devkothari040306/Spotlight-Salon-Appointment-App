@@ -50,7 +50,7 @@ function ServiceModal({ service, onSave, onClose }) {
         <form onSubmit={handleSave} className="space-y-4">
           {[
             { label: 'Name', name: 'name', type: 'text', required: true },
-            { label: 'Price (£)', name: 'price', type: 'number', required: true },
+            { label: 'Price (₹)', name: 'price', type: 'number', required: true },
             { label: 'Duration (min)', name: 'duration', type: 'number', required: true },
             { label: 'Image URL', name: 'image', type: 'url' },
           ].map(({ label, name, type, required }) => (
@@ -171,7 +171,7 @@ export default function AdminDashboard() {
             { label: 'Total bookings', value: stats.total, color: 'text-stone-900' },
             { label: 'Pending', value: stats.pending, color: 'text-amber-600' },
             { label: 'Confirmed', value: stats.confirmed, color: 'text-emerald-600' },
-            { label: 'Revenue (excl. cancelled)', value: `£${stats.revenue}`, color: 'text-rose-600' },
+            { label: 'Revenue (excl. cancelled)', value: `₹${stats.revenue}`, color: 'text-rose-600' },
           ].map(({ label, value, color }) => (
             <div key={label} className="card p-5">
               <p className="text-xs text-stone-500">{label}</p>
@@ -238,7 +238,7 @@ export default function AdminDashboard() {
                             <td className="px-4 py-3 text-stone-700">{a.service?.name}</td>
                             <td className="px-4 py-3 text-stone-600">{a.date}</td>
                             <td className="px-4 py-3 text-stone-600">{a.timeSlot}</td>
-                            <td className="px-4 py-3 text-stone-700">£{a.pricePaid}</td>
+                            <td className="px-4 py-3 text-stone-700">₹{a.pricePaid}</td>
                             <td className="px-4 py-3">
                               <span className={`badge-${a.status}`}>{a.status}</span>
                             </td>
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
                         <tr key={s._id} className="hover:bg-stone-50/50">
                           <td className="px-4 py-3 font-medium text-stone-900">{s.name}</td>
                           <td className="px-4 py-3 capitalize text-stone-600">{s.category}</td>
-                          <td className="px-4 py-3 text-stone-700">£{s.price}</td>
+                          <td className="px-4 py-3 text-stone-700">₹{s.price}</td>
                           <td className="px-4 py-3 text-stone-600">{s.duration} min</td>
                           <td className="px-4 py-3">
                             <span className={`badge ${s.isAvailable ? 'badge-confirmed' : 'badge-cancelled'}`}>
@@ -316,7 +316,7 @@ export default function AdminDashboard() {
         )}
       </div>
 
-      {/* Service modal */}
+      {/* Service model */}
       {editService !== null && (
         <ServiceModal
           service={editService || null}
