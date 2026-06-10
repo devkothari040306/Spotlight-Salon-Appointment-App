@@ -16,10 +16,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration — allow frontend origin
-const allowedOrigins = [
-  process.env.FRONTEND_URL || 'http://localhost:5173',
-  'https://salon-app.vercel.app', // update with your actual Vercel domain
-];
+const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+const allowedOrigins = [frontendUrl];
+
+// If you deploy frontend to Vercel and use the default Vercel app name,
+// you can also allow that domain explicitly.
+if (frontendUrl !== 'https://salon-app.vercel.app') {
+  allowedOrigins.push('https://salon-app.vercel.app');
+}
 
 app.use(
   cors({
