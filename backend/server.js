@@ -11,34 +11,19 @@ connectDB();
 
 const app = express();
 
-// ─── Middleware ───────────────────────────────────────────────────────────────
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ─── CORS Configuration ───────────────────────────────────────────────────────
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://spotlight-indol-mu.vercel.app',
-];
-
+// TEMPORARY CORS (for testing)
 app.use(
   cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin
-      if (!origin) return callback(null, true);
-
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-
-      console.log('Blocked Origin:', origin);
-      return callback(new Error('Not allowed by CORS'));
-    },
+    origin: true,
     credentials: true,
   })
 );
 
-// ─── Routes ──────────────────────────────────────────────────────────────────
+// Routes
 app.get('/', (req, res) => {
   res.send('Spotlight Salon API is running 🚀');
 });
@@ -63,7 +48,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message || 'Internal server error' });
 });
 
-// ─── Start server ─────────────────────────────────────────────────────────────
+// Start server
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
