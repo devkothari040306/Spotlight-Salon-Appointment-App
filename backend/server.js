@@ -11,19 +11,34 @@ connectDB();
 
 const app = express();
 
-// Middleware
+// ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// TEMPORARY CORS (for testing)
+// ─── CORS Configuration ───────────────────────────────────────────────────────
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://spotlight-indol-mu.vercel.app',
+];
+
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      // Allow requests with no origin
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log('Blocked Origin:', origin);
+      return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   })
 );
 
-// Routes
+// ─── Routes ───────────────────────────────────────────────────────────────────
 app.get('/', (req, res) => {
   res.send('Spotlight Salon API is running 🚀');
 });
@@ -32,23 +47,31 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
 
-// Health check
+// ─── Health Check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Salon API is running' });
+  res.json({
+    status: 'ok',
+    message: 'Salon API is running',
+  });
 });
 
-// 404 handler
+// ─── 404 Handler ──────────────────────────────────────────────────────────────
 app.use((req, res) => {
-  res.status(404).json({ message: 'Route not found' });
+  res.status(404).json({
+    message: 'Route not found',
+  });
 });
 
-// Global error handler
+// ─── Global Error Handler ─────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: err.message || 'Internal server error' });
+
+  res.status(500).json({
+    message: err.message || 'Internal server error',
+  });
 });
 
-// Start server
+// ─── Start Server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
