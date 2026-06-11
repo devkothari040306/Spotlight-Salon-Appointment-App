@@ -15,22 +15,23 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS configuration — allow frontend origin
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-const allowedOrigins = [frontendUrl];
-
-// If you deploy frontend to Vercel and use the default Vercel app name,
-// you can also allow that domain explicitly.
-if (frontendUrl !== 'https://salon-app.vercel.app') {
-  allowedOrigins.push('https://salon-app.vercel.app');
-}
+// ─── CORS Configuration ───────────────────────────────────────────────────────
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://spotlight-indol-mu.vercel.app',
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl)
+      // Allow requests with no origin
       if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log('Blocked Origin:', origin);
       return callback(new Error('Not allowed by CORS'));
     },
     credentials: true,
@@ -41,6 +42,7 @@ app.use(
 app.get('/', (req, res) => {
   res.send('Spotlight Salon API is running 🚀');
 });
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
@@ -63,8 +65,13 @@ app.use((err, req, res, next) => {
 
 // ─── Start server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5001;
+
 app.listen(PORT, () => {
-  console.log(`✅  Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+  console.log(
+    `✅ Server running on port ${PORT} in ${
+      process.env.NODE_ENV || 'development'
+    } mode`
+  );
 });
 
 module.exports = app;
