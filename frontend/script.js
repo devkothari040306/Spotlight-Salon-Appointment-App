@@ -6,6 +6,48 @@ const API_BASE = window.API_BASE || (
 );
 const CATEGORIES = ['all', 'hair', 'skin', 'nails', 'spa', 'other'];
 const STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'];
+const SERVICE_IMAGE_FALLBACKS = [
+  {
+    match: ['color', 'colour', 'highlight'],
+    url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['cut', 'haircut', 'styling'],
+    url: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['spa', 'conditioning', 'treatment'],
+    url: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['wash'],
+    url: 'https://images.unsplash.com/photo-1633681926035-ec1ac984418a?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['facial', 'skin'],
+    url: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['manicure', 'nail', 'pedicure'],
+    url: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['massage', 'stone'],
+    url: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&auto=format&fit=crop&q=80',
+  },
+  {
+    match: ['bridal', 'makeup', 'make-up'],
+    url: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=900&auto=format&fit=crop&q=80',
+  },
+];
+
+const CATEGORY_IMAGE_FALLBACKS = {
+  hair: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&auto=format&fit=crop&q=80',
+  skin: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&auto=format&fit=crop&q=80',
+  nails: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=900&auto=format&fit=crop&q=80',
+  spa: 'https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=900&auto=format&fit=crop&q=80',
+  other: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=900&auto=format&fit=crop&q=80',
+};
 
 const state = {
   user: readUser(),
@@ -260,10 +302,11 @@ function paintServices(category = 'all') {
 
 function serviceCard(service) {
   const bookHref = state.user ? `#book?serviceId=${service._id}` : `#login`;
+  const imageUrl = serviceImageUrl(service);
   return `
     <article class="service-card">
       <div class="service-image">
-        ${service.image ? `<img src="${escapeHtml(service.image)}" alt="${escapeHtml(service.name)}" loading="lazy">` : ''}
+        <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(service.name)}" loading="lazy">
       </div>
       <div class="service-body">
         <span class="pill">${escapeHtml(service.category || 'other')}</span>
@@ -276,6 +319,17 @@ function serviceCard(service) {
       </div>
     </article>
   `;
+}
+
+function serviceImageUrl(service) {
+  if (service.image) return service.image;
+
+  const searchable = `${service.name || ''} ${service.description || ''} ${service.category || ''}`.toLowerCase();
+  const match = SERVICE_IMAGE_FALLBACKS.find((fallback) =>
+    fallback.match.some((keyword) => searchable.includes(keyword))
+  );
+
+  return match?.url || CATEGORY_IMAGE_FALLBACKS[service.category] || CATEGORY_IMAGE_FALLBACKS.other;
 }
 
 function emptyCards(count) {
